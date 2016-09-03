@@ -1,5 +1,6 @@
 package example.my.hellolayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -20,6 +22,11 @@ public class HelloFragment extends Fragment {
     private Button mHelloButton;
     private Button mByeButton;
 
+    private TextView mMessageTextViewSeekBar;
+    private SeekBar mSeekBar;
+    private SeekBar mSeekBar2;
+
+
     public HelloFragment() {
     }
 
@@ -32,6 +39,9 @@ public class HelloFragment extends Fragment {
         mMessageTextView = (TextView) rootView.findViewById(R.id.hello_fragment_tv_message);
         mHelloButton = (Button) rootView.findViewById(R.id.button_hello);
         mByeButton = (Button) rootView.findViewById(R.id.button_bye);
+
+        mSeekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
+        mSeekBar2 = (SeekBar) rootView.findViewById(R.id.seekBarCounter);
 
         return rootView;
     }
@@ -53,7 +63,54 @@ public class HelloFragment extends Fragment {
                 mMessageTextView.setText("Bye!");
             }
         });
-    }
+
+        mSeekBar.setMax(360);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float[] hsv = new float[] {progress, 1, 1};
+                int color = Color.HSVToColor(hsv);
+                getView().setBackgroundColor(color);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+//        mMessageTextViewSeekBar.setText("Counter : " + mSeekBar2.getProgress()+ "/" + mSeekBar2.getMax());
+//
+//        mSeekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+////            int progress = 0;
+//
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+////                progress = progresValue;
+//
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+
+        }
+
 
 //    @Override
 //    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
